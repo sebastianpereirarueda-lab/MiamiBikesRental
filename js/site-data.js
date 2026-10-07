@@ -24,7 +24,7 @@ window.SITE = {
         ["Style", "Scrambler"],
         ["Color", "Option 719 Grey"],
       ],
-      url: "#",
+      url: "https://www.riders-share.com/listing/GCR5GPWKZyxtytfqr/ref-NelsonManuelp+WYKZD",
     },
     {
       tag: "The Grand Tourer",
@@ -39,7 +39,7 @@ window.SITE = {
         ["Style", "Grand Tourer"],
         ["Gearbox", "DCT Auto"],
       ],
-      url: "#",
+      url: "https://www.riders-share.com/listing/EAeaW4doc22d6nh6G/ref-NelsonManuelp+WYKZD",
     },
     {
       tag: "The Dark Horse",
@@ -54,7 +54,7 @@ window.SITE = {
         ["Style", "Cruiser"],
         ["Vibe", "Dark & Mean"],
       ],
-      url: "#",
+      url: "https://www.riders-share.com/listing/ynyFmqSogoD8MXa2M/ref-NelsonManuelp+WYKZD",
     },
     {
       tag: "The Ride",
@@ -69,19 +69,17 @@ window.SITE = {
         ["Style", "Adventure"],
         ["Color", "White / Black"],
       ],
-      url: "#",
+      url: "https://www.riders-share.com/listing/FN33jkyKFmo67YCjk/ref-NelsonManuelp+WYKZD",
     },
   ],
 
-  // Gallery: add files to assets/gallery/ and list them here.
+  // Gallery: add files under assets/ and list them here.
   // For videos use type: "video" (mp4 recommended).
   gallery: [
-    { type: "image", src: "assets/gallery/scrambler-1.jpg", label: "BMW R nineT Scrambler" },
-    { type: "image", src: "assets/gallery/scrambler-2.jpg", label: "BMW R nineT Scrambler" },
-    { type: "image", src: "assets/gallery/scrambler-3.jpg", label: "BMW R nineT Scrambler" },
-    { type: "image", src: "assets/gallery/honda-nt1100.jpg", label: "Honda NT1100" },
-    { type: "image", src: "assets/gallery/harley-nightster.jpg", label: "Harley Davidson Nightster" },
-    { type: "image", src: "assets/gallery/bmw-f800gs.jpg", label: "BMW F 800 GS" },
+    { type: "image", src: "assets/images/bmw-r-ninet-scrambler.jpg", label: "BMW R nineT Scrambler" },
+    { type: "image", src: "assets/images/honda-nt1100.jpg", label: "Honda NT1100" },
+    { type: "image", src: "assets/images/harley-nightster.jpg", label: "Harley-Davidson Nightster" },
+    { type: "image", src: "assets/images/bmw-f800gs.jpg", label: "BMW F 800 GS" },
   ],
 
   reviews: [

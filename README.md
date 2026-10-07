@@ -16,7 +16,7 @@ Put these files in place (names must match, or edit the paths in `js/site-data.j
 | `assets/images/honda-nt1100.jpg` | Bike card |
 | `assets/images/harley-nightster.jpg` | Bike card |
 | `assets/images/bmw-f800gs.jpg` | Bike card |
-| `assets/gallery/*.jpg` / `*.mp4` | Gallery (list each one in `gallery` in `js/site-data.js`) |
+| Extra gallery photos/videos | Add anywhere under `assets/` and list them in `gallery` in `js/site-data.js` |
 
 ## Publishing free on GitHub Pages with your domain
 1. Repo **Settings → Pages** → Source: *Deploy from a branch*, pick the branch, folder `/ (root)`.
