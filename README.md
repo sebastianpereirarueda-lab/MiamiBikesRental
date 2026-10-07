@@ -1,6 +1,6 @@
 # Miami Bikes Rentals
 
-Static website for **miamibikesrentals.com** — plain HTML/CSS/JS, no build step, no monthly fees.
+Static website for **www.miamibikesrentals.com** — plain HTML/CSS/JS, no build step, no monthly fees.
 
 ## Editing content
 All text, bikes, links, gallery items and reviews live in **`js/site-data.js`**.
@@ -19,11 +19,11 @@ Put these files in place (names must match, or edit the paths in `js/site-data.j
 | Extra gallery photos/videos | Add anywhere under `assets/` and list them in `gallery` in `js/site-data.js` |
 
 ## Publishing free on GitHub Pages with your domain
-1. Repo **Settings → Pages** → Source: *Deploy from a branch*, pick the branch, folder `/ (root)`.
-2. The `CNAME` file already contains `miamibikesrentals.com`.
+1. Repo **Settings → Pages** → Source: *Deploy from a branch*, pick the `claude/serene-davinci-cdsjlo` branch (or `main` if you rename it), folder `/ (root)`.
+2. The `CNAME` file already contains `www.miamibikesrentals.com` (the bare `miamibikesrentals.com` will redirect to it).
 3. At your domain registrar, set DNS:
    - `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - `CNAME` for `www` → `<your-github-username>.github.io`
+   - `CNAME` for `www` → `sebastianpereirarueda-lab.github.io`
    - Remove any old Base44 records.
 4. Back in Settings → Pages, tick **Enforce HTTPS** once the certificate is issued.
 
