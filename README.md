@@ -11,7 +11,7 @@ Put these files in place (names must match, or edit the paths in `js/site-data.j
 
 | File | Used for |
 |---|---|
-| `assets/images/logo.png` | Logo (nav, hero, contact, footer, favicon) |
+| `assets/images/logo.jpg` / `logo-icon.png` | Logo (hero + contact) / round icon (nav, footer) |
 | `assets/images/bmw-r-ninet-scrambler.jpg` | Bike card |
 | `assets/images/honda-nt1100.jpg` | Bike card |
 | `assets/images/harley-nightster.jpg` | Bike card |
