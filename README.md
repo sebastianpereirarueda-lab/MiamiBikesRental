@@ -7,19 +7,43 @@ Static website for **www.miamibikesrentals.com** — plain HTML/CSS/JS, no build
 - Ride routes (the Routes page): **`js/routes-data.js`** — each stop is `[name, lat, lng]`; they draw the
   mini map and build the "Open in Google Maps" link.
 
-## Tracking booking clicks
-Every Riders Share link on the site reports a click event named like
-`riders-share/booking/honda-nt1100/bike-card` (bike + where on the page it was clicked) or
-`riders-share/profile/see-all-reviews`. Nothing is recorded until you add an analytics ID:
+## Click tracking & the client portal
+Every link and button click on the site is recorded as an event named
+`<kind>/<page>/<section>/<name>`, for example:
 
-**GoatCounter (free, no cookie banner needed — recommended)**
+| Event | Meaning |
+|---|---|
+| `booking/home/bikes/honda-nt1100` | "Rent this bike" on the Honda card |
+| `booking/home/contact/honda-nt1100` | Honda link in the Contact section |
+| `riders-share/home/reviews/see-all-reviews` | Riders Share profile button |
+| `internal/home/nav/routes` | "Routes" in the top menu |
+| `outbound/routes/<route>/open-in-google-maps` | A route's Google Maps button |
+| `action/home/gallery/photo-<label>` | Opened a gallery photo |
+
+Each click also carries the visitor's **traffic source** (Instagram, google.com, a `utm_source`, or "direct"),
+so the portal can show which sources lead to which clicks. Override a name with `data-track="..."`, or skip
+an element with `data-track="off"`.
+
+### Client portal — `www.miamibikesrentals.com/admin/`
+A private dashboard showing visitors, clicks per day, booking clicks per bike, clicks by part of the site,
+every link clicked (select one to see where those clicks came from), traffic sources, campaigns,
+locations, devices, plus a tracked-link builder for Instagram/ads/flyers. Preview it with sample data
+at `/admin/#demo`. It is not linked from the site and is hidden from search engines.
+
+**One-time setup (GoatCounter — free, no cookie banner needed)**
 1. Sign up at https://www.goatcounter.com/signup and pick a code, e.g. `miamibikesrentals`.
-2. In `js/site-data.js` set `analytics: { goatcounter: "miamibikesrentals", ga4: "" }`.
-3. Push. Your dashboard at `https://miamibikesrentals.goatcounter.com` shows page visits plus each
-   `riders-share/...` click (filter by "Events").
+2. In `js/site-data.js` set `analytics: { goatcounter: "miamibikesrentals", ga4: "" }` and push.
+3. In GoatCounter go to **Settings → API → New API key**, tick only **Read statistics**, and copy the key.
+4. Your client's portal link is
+   `https://www.miamibikesrentals.com/admin/#key=PASTE_KEY_HERE`
+   (or open `/admin/`, paste the key, then use **Copy portal link**).
+   Opening the link signs them in and keeps them signed in on that device. The key sits after `#`, so it is
+   never sent to any server, but anyone holding the link can view the stats. To revoke access, delete the key in
+   GoatCounter and send a new link.
 
-**Google Analytics 4 (alternative)**: create a GA4 property, copy the `G-XXXXXXX` measurement ID into
-`ga4`. Clicks appear as the `riders_share_click` event with a `link_label` parameter.
+**Google Analytics 4 (optional, in addition)**: put the `G-XXXXXXX` ID in `ga4`. Clicks arrive as
+`booking_click` / `site_click` events with `link_label`, `link_url`, `traffic_source` and `campaign`
+parameters. The portal reads GoatCounter only.
 
 ## Images to add
 Put these files in place (names must match, or edit the paths in `js/site-data.js`):

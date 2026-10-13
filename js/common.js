@@ -1,4 +1,4 @@
-/* Shared behaviour for every page: nav, analytics and Riders Share click tracking. */
+/* Shared behaviour for every page: nav, analytics and click tracking. */
 (function () {
   const S = window.SITE || {};
   const A = S.analytics || {};
@@ -37,17 +37,87 @@
     window.gtag("config", A.ga4);
   }
 
-  // Every click on a Riders Share link is recorded as an event named after the
-  // link's data-track label, e.g. "riders-share/booking/honda-nt1100/bike-card".
+  // ---- Click tracking ----
+  // Every link/button click is recorded as an event named
+  //   <kind>/<page>/<section>/<name>   e.g. "booking/home/bikes/honda-nt1100"
+  // kind:    booking (a bike's Riders Share page), riders-share (profile/contact),
+  //          outbound (any other site), internal (links within this site), action (buttons)
+  // page:    home | routes
+  // section: the part of the page clicked (nav, hero, bikes, gallery, reviews, contact, footer, a route…)
+  // name:    the element's data-track value, or its text
+  // The visitor's traffic source (instagram, google.com, a utm_source…) is sent as the
+  // event's referrer, so the admin dashboard can show which sources lead to which clicks.
+  const store = (() => {
+    try {
+      return window.sessionStorage;
+    } catch (e) {
+      return null;
+    }
+  })();
+  const source = (() => {
+    try {
+      const saved = store && store.getItem("mbr-source");
+      if (saved) return saved;
+      const q = new URLSearchParams(location.search);
+      let src = q.get("utm_source") || q.get("ref") || q.get("source") || "";
+      if (!src && document.referrer) {
+        const host = new URL(document.referrer).hostname.replace(/^www\./, "");
+        if (host !== location.hostname.replace(/^www\./, "")) src = host;
+      }
+      src = src || "direct";
+      if (store) store.setItem("mbr-source", src);
+      return src;
+    } catch (e) {
+      return "direct";
+    }
+  })();
+  const campaign = new URLSearchParams(location.search).get("utm_campaign") || "";
+  const page = /routes/.test(location.pathname) ? "routes" : "home";
+
+  const sectionOf = (el) => {
+    const tagged = el.closest("[data-section]");
+    if (tagged) return tagged.dataset.section;
+    if (el.closest("#nav")) return "nav";
+    if (el.closest("footer")) return "footer";
+    if (el.closest(".hero, .page-hero")) return "hero";
+    if (el.closest("#lightbox")) return "gallery";
+    const area = el.closest("article[id], section[id]");
+    return area ? area.id : "page";
+  };
+  const kindOf = (el) => {
+    if (el.tagName !== "A") return "action";
+    let url;
+    try {
+      url = new URL(el.href, location.href);
+    } catch (e) {
+      return "internal";
+    }
+    if (/riders-share\.com$/.test(url.hostname)) return /\/user\//.test(url.pathname) ? "riders-share" : "booking";
+    return url.hostname === location.hostname || url.protocol === "file:" ? "internal" : "outbound";
+  };
+
   document.addEventListener("click", (e) => {
-    const a = e.target.closest('a[href*="riders-share.com"]');
-    if (!a) return;
-    const label = a.dataset.track || "riders-share/other/" + MBR.slug(a.textContent);
+    const el = e.target.closest("a, button");
+    if (!el || el.dataset.track === "off") return;
+    const kind = kindOf(el);
+    const name =
+      el.dataset.track ||
+      MBR.slug(el.getAttribute("aria-label") || el.textContent).slice(0, 48) ||
+      (kind === "internal" || kind === "action" ? "link" : MBR.slug(new URL(el.href).hostname));
+    const label = `${kind}/${page}/${sectionOf(el)}/${name}`;
+    // Link destination without query strings (keeps the visitor's utm tags out of the title).
+    const target = el.tagName === "A" ? el.href.replace(/\?[^#]*/, "") : el.textContent.trim().slice(0, 80);
     if (window.goatcounter && window.goatcounter.count) {
-      window.goatcounter.count({ path: label, title: a.href, event: true });
+      window.goatcounter.count({ path: label, title: target, referrer: source, event: true });
     }
     if (window.gtag) {
-      window.gtag("event", "riders_share_click", { link_label: label, link_url: a.href, transport_type: "beacon" });
+      window.gtag("event", kind === "booking" ? "booking_click" : "site_click", {
+        link_label: label,
+        link_url: target,
+        traffic_source: source,
+        campaign,
+        transport_type: "beacon",
+      });
     }
   });
 

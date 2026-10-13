@@ -5,10 +5,10 @@
   const $ = (sel) => document.querySelector(sel);
   const VISIBLE_REVIEWS = 6;
 
-  const bookingLink = (b, placement, inner, cls = "") =>
+  const bookingLink = (b, inner, cls = "") =>
     b.url && b.url !== "#"
-      ? `<a class="${cls}" href="${esc(b.url)}" target="_blank" rel="noopener" data-track="riders-share/booking/${slug(b.name)}/${placement}">${inner}</a>`
-      : `<a class="${cls}" href="#contact">${inner}</a>`;
+      ? `<a class="${cls}" href="${esc(b.url)}" target="_blank" rel="noopener" data-track="${slug(b.name)}">${inner}</a>`
+      : `<a class="${cls}" href="#contact" data-track="${slug(b.name)}">${inner}</a>`;
 
   // Bikes
   $("#bike-grid").innerHTML = S.bikes
@@ -26,7 +26,7 @@
         <dl class="specs">
           ${b.specs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}
         </dl>
-        ${bookingLink(b, "bike-card", `Rent this bike ${ext}`, "btn btn-primary btn-block")}
+        ${bookingLink(b, `Rent this bike ${ext}`, "btn btn-primary btn-block")}
       </div>
     </article>`
     )
@@ -36,7 +36,7 @@
   $("#gallery-grid").innerHTML = S.gallery
     .map(
       (g, i) => `
-    <button class="gallery-item" data-index="${i}" aria-label="Open ${esc(g.label)}">
+    <button class="gallery-item" data-index="${i}" data-track="photo-${slug(g.label)}" aria-label="Open ${esc(g.label)}">
       ${
         g.type === "video"
           ? `<video src="${esc(g.src)}" muted loop playsinline preload="metadata"></video><span class="play">▶</span>`
@@ -75,7 +75,7 @@
 
   // Booking links in the contact section
   $("#booking-links").innerHTML = S.bikes
-    .map((b) => bookingLink(b, "contact-list", `<span>${esc(b.name)} ${esc(b.year)}</span>${ext}`))
+    .map((b) => bookingLink(b, `<span>${esc(b.name)} ${esc(b.year)}</span>${ext}`))
     .join("");
 
   // Lightbox
