@@ -3,8 +3,23 @@
 Static website for **www.miamibikesrentals.com** — plain HTML/CSS/JS, no build step, no monthly fees.
 
 ## Editing content
-All text, bikes, links, gallery items and reviews live in **`js/site-data.js`**.
-Replace every `"#"` with the real Riders Share URL (one per bike, plus the profile/contact link).
+- Bikes, Riders Share links, gallery and reviews: **`js/site-data.js`**
+- Ride routes (the Routes page): **`js/routes-data.js`** — each stop is `[name, lat, lng]`; they draw the
+  mini map and build the "Open in Google Maps" link.
+
+## Tracking booking clicks
+Every Riders Share link on the site reports a click event named like
+`riders-share/booking/honda-nt1100/bike-card` (bike + where on the page it was clicked) or
+`riders-share/profile/see-all-reviews`. Nothing is recorded until you add an analytics ID:
+
+**GoatCounter (free, no cookie banner needed — recommended)**
+1. Sign up at https://www.goatcounter.com/signup and pick a code, e.g. `miamibikesrentals`.
+2. In `js/site-data.js` set `analytics: { goatcounter: "miamibikesrentals", ga4: "" }`.
+3. Push. Your dashboard at `https://miamibikesrentals.goatcounter.com` shows page visits plus each
+   `riders-share/...` click (filter by "Events").
+
+**Google Analytics 4 (alternative)**: create a GA4 property, copy the `G-XXXXXXX` measurement ID into
+`ga4`. Clicks appear as the `riders_share_click` event with a `link_label` parameter.
 
 ## Images to add
 Put these files in place (names must match, or edit the paths in `js/site-data.js`):

@@ -30,6 +30,7 @@
       <nav class="nav-links">
         <a href="#bikes">Our Bikes</a>
         <a href="#gallery">Gallery</a>
+        <a href="routes.html">Routes</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
         <a href="#bikes" class="btn btn-primary btn-sm">Rent Now</a>
@@ -85,9 +86,24 @@
           <div class="divider"></div>
         </div>
         <div class="review-grid" id="review-grid"></div>
-        <div class="center">
-          <a href="#" class="btn btn-outline js-profile-link" target="_blank" rel="noopener">See all reviews on Riders Share <svg class="ext"><use href="#i-ext" /></svg></a>
+        <div class="center review-actions">
+          <button type="button" class="btn btn-ghost" id="reviews-more" hidden>Show more reviews</button>
+          <a href="#" class="btn btn-outline js-profile-link" target="_blank" rel="noopener" data-track="riders-share/profile/see-all-reviews">See all reviews on Riders Share <svg class="ext"><use href="#i-ext" /></svg></a>
         </div>
+      </div>
+    </section>
+
+    <!-- ROUTES TEASER -->
+    <section class="section section-alt" id="routes">
+      <div class="container">
+        <a href="routes.html" class="routes-teaser">
+          <div>
+            <p class="eyebrow">Where to Ride</p>
+            <h2 class="section-title">MIAMI <span>RIDE ROUTES</span></h2>
+            <p>Key West over the Seven Mile Bridge, gators on the Tamiami Trail, sunset on Key Biscayne. Hand-picked rides with maps and tips — open any route straight in Google Maps.</p>
+          </div>
+          <span class="btn btn-primary btn-lg">Explore Routes</span>
+        </a>
       </div>
     </section>
 
@@ -118,7 +134,7 @@
           <div class="contact-side">
             <img src="assets/images/logo.jpg" alt="Miami Bikes Rentals logo" class="contact-logo" onerror="this.style.display='none'" />
             <p>Miami Bikes Rentals — premium motorcycles, zero hassle.<br />Book through Riders Share and we'll take care of the rest.</p>
-            <a href="#" class="btn btn-primary btn-lg js-contact-link" target="_blank" rel="noopener">Contact us here <svg class="ext"><use href="#i-ext" /></svg></a>
+            <a href="#" class="btn btn-primary btn-lg js-contact-link" target="_blank" rel="noopener" data-track="riders-share/profile/contact-us">Contact us here <svg class="ext"><use href="#i-ext" /></svg></a>
           </div>
         </div>
       </div>
@@ -134,6 +150,7 @@
       <nav class="footer-links">
         <a href="#bikes">Bikes</a>
         <a href="#gallery">Gallery</a>
+        <a href="routes.html">Routes</a>
         <a href="#reviews">Reviews</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -155,6 +172,7 @@
   </svg>
 
   <script src="js/site-data.js"></script>
+  <script src="js/common.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

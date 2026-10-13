@@ -6,9 +6,17 @@
  * ============================================================
  */
 window.SITE = {
-  // Main Riders Share links. Replace the "#" placeholders with your real URLs.
-  ridersShareProfile: "#", // "See all reviews" + "Contact us here" buttons
-  contactUrl: "#",          // "Contact us here" button (can be same as profile)
+  // Riders Share profile: all reviews, 5-star rating and every bike.
+  ridersShareProfile: "https://www.riders-share.com/user/hakPjWedg6JsWYKZD", // "See all reviews" button
+  contactUrl: "https://www.riders-share.com/user/hakPjWedg6JsWYKZD",         // "Contact us here" button
+
+  // Click tracking for Riders Share links (see README "Tracking booking clicks").
+  // Paste your GoatCounter code (the "xxx" in xxx.goatcounter.com) and/or a
+  // Google Analytics 4 ID ("G-XXXXXXX"). Leave empty to turn tracking off.
+  analytics: {
+    goatcounter: "",
+    ga4: "",
+  },
 
   bikes: [
     {
@@ -82,19 +90,43 @@ window.SITE = {
     { type: "image", src: "assets/images/bmw-f800gs.jpg", label: "BMW F 800 GS" },
   ],
 
+  // Newest first. Text is copied from Riders Share as written by each rider.
   reviews: [
-    { text: "Excelente todo viaje y moto ok", name: "Camilo", bike: "Honda NT1100", date: "Sep 2026" },
+    { name: "Camilo", bike: "2026 Honda NT1100 DCT", date: "Sep 2026", text: "Excelente todo viaje y moto ok" },
     {
-      text: "The process of rental was flawless and quick. For those in Doral, this location is very convenient. The motorcycle was in perfect condition.",
       name: "Alvaro",
-      bike: "BMW F 800 GS",
+      bike: "2024 BMW F 800 GS",
       date: "Sep 2026",
+      text: "The process of rental was flawless and quick. For those in Doral, this location is very convenient. The motorcycle was in perfect condition and responded very well even with 2 persons. I especially like the fact that you can pay tolls later being deducted from deposit",
     },
+    { name: "Juan", bike: "2022 BMW F 900 XR", date: "Aug 2026", text: "Nelson fue super amable todo el tiempo. Las motos en perfectas condiciones." },
+    { name: "Joseph", bike: "2026 Honda NT1100 DCT", date: "Jul 2026", text: "Excellent service and bike rental! Thanks, Nelson!" },
     {
-      text: "Nelson fue super amable todo el tiempo. Las motos en perfectas condiciones.",
-      name: "Juan",
-      bike: "BMW F 900 XR",
-      date: "Aug 2026",
+      name: "Daniel",
+      bike: "2022 BMW F 900 XR",
+      date: "Jul 2026",
+      text: "Nelson es una persona que cumple con lo pactado. Me gustó mucho la forma ágil de entregarnos las motos y la verdad un caballero. Muy agradecido por su atención y lo recomiendo para todos aquellos que quieran recorrer EE UU en moto. Las motos impecables y gracias Nelson",
+    },
+    { name: "César", bike: "2026 Honda NT1100 DCT", date: "Jul 2026", text: "Nelson es un caballero, amable, paciente y lo recomiendo!!!!!!" },
+    {
+      name: "Vladislav",
+      bike: "2022 BMW F 900 XR",
+      date: "May 2026",
+      text: "Amazing host and amazing bike! Highly recommended to anyone looking for a motorcycle to rent, especially this specific bike!",
+    },
+    { name: "Edric", bike: "2026 Honda NT1100 DCT", date: "May 2026", text: "Mr. Nelson is top renter, friendly and easy to communicate. I definitely recommended." },
+    {
+      name: "Bilal",
+      bike: "2026 Harley-Davidson Nightster",
+      date: "May 2026",
+      text: "Mr Nelson was an amazing host, very accommodating, and flexible. The bike was also in amazing condition, perfect for the streets of Miami. Passenger seat also super comfortable and definitely recommended for anyone visiting Miami alone or as a couple. 5 stars.",
+    },
+    { name: "Daniel", bike: "2026 Harley-Davidson Nightster", date: "May 2026", text: "Súper recomendable!!!" },
+    {
+      name: "Micce",
+      bike: "2022 BMW F 900 XR",
+      date: "Apr 2026",
+      text: "A bike in perfect condition and very easy pickup and when we left the bike. Well organized and easy to chat with! Definitely recommend him.",
     },
   ],
 };

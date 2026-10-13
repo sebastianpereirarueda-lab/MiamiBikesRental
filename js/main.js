@@ -1,10 +1,14 @@
+/* Home page: renders bikes, gallery, reviews and booking links from js/site-data.js. */
 (function () {
   const S = window.SITE;
+  const { esc, slug, ext } = window.MBR;
   const $ = (sel) => document.querySelector(sel);
-  const esc = (s) =>
-    String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const ext = '<svg class="ext"><use href="#i-ext" /></svg>';
-  const linkAttrs = (url) => (url && url !== "#" ? `href="${esc(url)}" target="_blank" rel="noopener"` : 'href="#contact"');
+  const VISIBLE_REVIEWS = 6;
+
+  const bookingLink = (b, placement, inner, cls = "") =>
+    b.url && b.url !== "#"
+      ? `<a class="${cls}" href="${esc(b.url)}" target="_blank" rel="noopener" data-track="riders-share/booking/${slug(b.name)}/${placement}">${inner}</a>`
+      : `<a class="${cls}" href="#contact">${inner}</a>`;
 
   // Bikes
   $("#bike-grid").innerHTML = S.bikes
@@ -22,7 +26,7 @@
         <dl class="specs">
           ${b.specs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}
         </dl>
-        <a class="btn btn-primary btn-block" ${linkAttrs(b.url)}>Rent this bike ${ext}</a>
+        ${bookingLink(b, "bike-card", `Rent this bike ${ext}`, "btn btn-primary btn-block")}
       </div>
     </article>`
     )
@@ -43,11 +47,11 @@
     )
     .join("");
 
-  // Reviews
+  // Reviews (first few visible, the rest behind "Show more")
   $("#review-grid").innerHTML = S.reviews
     .map(
-      (r) => `
-    <figure class="review-card">
+      (r, i) => `
+    <figure class="review-card"${i >= VISIBLE_REVIEWS ? " hidden" : ""}>
       <div class="stars">★★★★★</div>
       <blockquote>"${esc(r.text)}"</blockquote>
       <figcaption>
@@ -57,42 +61,22 @@
     </figure>`
     )
     .join("");
-
-  // Booking links
-  $("#booking-links").innerHTML = S.bikes
-    .map((b) => `<a ${linkAttrs(b.url)}><span>${esc(b.name)} ${esc(b.year)}</span>${ext}</a>`)
-    .join("");
-
-  const setLink = (sel, url) =>
-    document.querySelectorAll(sel).forEach((a) => {
-      if (url && url !== "#") {
-        a.href = url;
-      } else {
-        a.href = "#contact";
-        a.removeAttribute("target");
-      }
+  const more = $("#reviews-more");
+  if (S.reviews.length > VISIBLE_REVIEWS) {
+    more.hidden = false;
+    more.addEventListener("click", () => {
+      document.querySelectorAll("#review-grid .review-card[hidden]").forEach((c) => {
+        c.hidden = false;
+        c.classList.add("in");
+      });
+      more.hidden = true;
     });
-  setLink(".js-profile-link", S.ridersShareProfile);
-  setLink(".js-contact-link", S.contactUrl);
+  }
 
-  $("#year").textContent = new Date().getFullYear();
-
-  // Mobile nav
-  const toggle = $(".nav-toggle");
-  const links = $(".nav-links");
-  toggle.addEventListener("click", () => {
-    const open = links.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", open);
-  });
-  links.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") links.classList.remove("open");
-  });
-
-  // Nav background on scroll
-  const nav = $("#nav");
-  const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 20);
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  // Booking links in the contact section
+  $("#booking-links").innerHTML = S.bikes
+    .map((b) => bookingLink(b, "contact-list", `<span>${esc(b.name)} ${esc(b.year)}</span>${ext}`))
+    .join("");
 
   // Lightbox
   const lb = $("#lightbox");
@@ -118,19 +102,5 @@
   });
   document.addEventListener("keydown", (e) => e.key === "Escape" && !lb.hidden && close());
 
-  // Reveal on scroll
-  const io = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((en) => {
-        if (en.isIntersecting) {
-          en.target.classList.add("in");
-          io.unobserve(en.target);
-        }
-      }),
-    { threshold: 0.12 }
-  );
-  document.querySelectorAll(".bike-card, .gallery-item, .review-card, .section-head").forEach((el) => {
-    el.classList.add("reveal");
-    io.observe(el);
-  });
+  MBR.reveal(".bike-card, .gallery-item, .review-card:not([hidden]), .section-head, .routes-teaser");
 })();
