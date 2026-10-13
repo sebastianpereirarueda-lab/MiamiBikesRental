@@ -140,6 +140,7 @@ window.ROUTES = [
     tags: ["Brickell", "Wynwood", "Design District", "Julia Tuttle Causeway", "Ocean Drive", "MacArthur Causeway"],
     stops: [
       ["Brickell", 25.7617, -80.1918],
+      ["NW 2nd Ave", 25.7935, -80.1992, "none"],
       ["Wynwood", 25.8008, -80.1994],
       ["Design District", 25.8131, -80.1925, "t"],
       ["Julia Tuttle Causeway", 25.8106, -80.16, "b"],
