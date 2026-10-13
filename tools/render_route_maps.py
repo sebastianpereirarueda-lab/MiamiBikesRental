@@ -98,16 +98,16 @@ def render(route, data):
         kind = "start" if first else "end" if last else "mid"
         marks.append((x, y, kind))
         pos = pos or ("r" if x < W * 0.62 else "l")
-        dx, dy, anchor = {"r": (18, 8, "start"), "l": (-18, 8, "end"), "t": (0, -20, "middle"), "b": (0, 34, "middle")}[pos]
+        dx, dy, anchor = {"r": (20, 10, "start"), "l": (-20, 10, "end"), "t": (0, -22, "middle"), "b": (0, 42, "middle")}[pos]
         labels.append((x + dx, y + dy, anchor, name))
 
     svg = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">',
            '<defs><radialGradient id="v" cx="50%" cy="50%" r="70%"><stop offset="55%" stop-color="#0d0f13" stop-opacity="0"/>'
-           '<stop offset="100%" stop-color="#0d0f13" stop-opacity=".85"/></radialGradient>'
+           '<stop offset="100%" stop-color="#0a0e15" stop-opacity=".85"/></radialGradient>'
            '<filter id="g" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="7"/></filter></defs>',
-           f'<rect width="{W}" height="{H}" fill="#0c0e12"/>']
+           f'<rect width="{W}" height="{H}" fill="#0a0e15"/>']
     if land is not None and not land.is_empty:
-        svg.append(f'<path d="{path([land])}" fill="#171a21" fill-rule="evenodd" stroke="#ffffff" stroke-opacity=".32" stroke-width="1.6"/>')
+        svg.append(f'<path d="{path([land])}" fill="#171a20" fill-rule="evenodd" stroke="#ffffff" stroke-opacity=".30" stroke-width="1.6"/>')
     svg.append(f'<path d="{path(clip(data["water"]))}" fill="none" stroke="#5b8bd6" stroke-opacity=".22" stroke-width="1.2"/>')
     svg.append(f'<path d="{path(clip(data["minor"]))}" fill="none" stroke="#ffffff" stroke-opacity=".10" stroke-width="1"/>')
     svg.append(f'<path d="{path(clip(data["mid"]))}" fill="none" stroke="#ffffff" stroke-opacity=".20" stroke-width="1.6"/>')
@@ -115,7 +115,7 @@ def render(route, data):
     svg.append(f'<rect width="{W}" height="{H}" fill="url(#v)"/>')
     rd = path([route_line])
     svg.append(f'<path d="{rd}" fill="none" stroke="{ORANGE}" stroke-opacity=".55" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" filter="url(#g)"/>')
-    svg.append(f'<path d="{rd}" fill="none" stroke="{ORANGE}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>')
+    svg.append(f'<path d="{rd}" fill="none" stroke="{ORANGE}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>')
     for x, y, kind in marks:
         if kind == "start":
             svg.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="13" fill="#fff" stroke="#0c0e12" stroke-width="4"/>')
@@ -125,7 +125,7 @@ def render(route, data):
             svg.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="8" fill="#0c0e12" stroke="#fff" stroke-width="4"/>')
     for x, y, anchor, name in labels:
         svg.append(f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" font-family="Inter, Arial, Helvetica, sans-serif" '
-                   f'font-size="25" font-weight="700" fill="#f2f3f5" stroke="#0c0e12" stroke-width="7" paint-order="stroke" '
+                   f'font-size="31" font-weight="700" fill="#f2f3f5" stroke="#0a0e15" stroke-width="8" paint-order="stroke" '
                    f'stroke-linejoin="round">{name.replace("&", "&amp;")}</text>')
     svg.append("</svg>")
     return "".join(svg)

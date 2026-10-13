@@ -1,14 +1,15 @@
 /* Routes page: renders each ride from js/routes-data.js with a mini route map. */
 (function () {
   const { esc, slug, ext } = window.MBR;
+  const MAP_VERSION = "202610130232"; // bump after re-rendering assets/routes/*.svg
   const pin =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
   const clock =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>';
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>';
   const gauge =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3.3 15a9 9 0 1 1 17.4 0"/><path d="m12 13 4-5"/></svg>';
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3.3 15a9 9 0 1 1 17.4 0"/><path d="m12 13 4-5"/></svg>';
   const warnIcon =
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>';
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>';
 
   const mapsUrl = (stops) => {
     const ll = (s) => `${s[1]},${s[2]}`;
@@ -63,8 +64,9 @@
     return `
     <article class="route-card${i % 2 ? " flip" : ""}" id="${id}">
       <div class="route-visual">
-        ${routeSvg(r.stops, i)}
+        <img class="route-img" src="assets/routes/${id}.svg?v=${MAP_VERSION}" alt="Map of the ${esc(r.title)} route" loading="${i < 2 ? "eager" : "lazy"}" data-index="${i}" />
         <span class="route-tag">${esc(r.tag)}</span>
+        <span class="route-credit">Map data © OpenStreetMap contributors</span>
       </div>
       <div class="route-body">
         <h2>${esc(r.title)}</h2>
@@ -86,6 +88,14 @@
       </div>
     </article>`;
   }).join("");
+
+  // If a map image is missing, fall back to the simple drawn route.
+  document.querySelectorAll(".route-img").forEach((img) => {
+    img.addEventListener("error", () => {
+      const i = +img.dataset.index;
+      img.outerHTML = routeSvg(window.ROUTES[i].stops, i);
+    });
+  });
 
   MBR.reveal(".route-card, .section-head");
 })();
