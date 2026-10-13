@@ -96,7 +96,10 @@ window.ROUTES = [
     stops: [
       ["South Pointe", 25.7653, -80.1341],
       ["Bal Harbour", 25.8915, -80.1268],
+      ["Sunny Isles Beach", 25.9445, -80.1207, "none"],
+      ["Hallandale Beach", 25.9858, -80.1187, "none"],
       ["Hollywood Beach", 26.0112, -80.1166],
+      ["Dania Beach", 26.0526, -80.1142, "none"],
       ["Fort Lauderdale Beach", 26.1224, -80.1043],
     ],
   },
