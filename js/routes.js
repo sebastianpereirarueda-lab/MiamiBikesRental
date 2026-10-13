@@ -21,6 +21,14 @@
     );
   };
 
+  // Apple Maps directions link (multi-stop needs iOS 18.4 / macOS 15.4 or newer;
+  // older devices open the route from the first stop to the last).
+  const appleUrl = (stops) => {
+    const ll = (s) => encodeURIComponent(`${s[1]},${s[2]}`);
+    const mid = stops.slice(1, -1).map((s) => `&waypoint=${ll(s)}`).join("");
+    return `https://maps.apple.com/directions?source=${ll(stops[0])}&destination=${ll(stops[stops.length - 1])}${mid}&mode=driving`;
+  };
+
   // Draw the route from real coordinates, scaled to fit the panel.
   const routeSvg = (stops, id) => {
     const W = 600, H = 440, PAD = 70, PADX = 105;
@@ -82,7 +90,11 @@
         ${r.tips && r.tips.length ? `<ul class="route-tips">${r.tips.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
         <div class="chips">${r.tags.map((t) => `<span>${esc(t)}</span>`).join("")}</div>
         <div class="route-actions">
-          <a class="btn btn-primary" href="${url}" target="_blank" rel="noopener">Open in Google Maps ${ext}</a>
+          <p class="route-open">Open this route in</p>
+          <div class="route-maps">
+            <a class="btn btn-primary" href="${url}" target="_blank" rel="noopener">Google Maps ${ext}</a>
+            <a class="btn btn-primary" href="${appleUrl(r.stops)}" target="_blank" rel="noopener">Apple Maps ${ext}</a>
+          </div>
           <a class="btn btn-outline" href="index.html#bikes">Rent a bike for this ride</a>
         </div>
       </div>

@@ -178,7 +178,9 @@ img.missing { opacity: 0; }
 .route-tips li::before { content: ""; position: absolute; left: 0; top: 7px; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .chips span { font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #b9bcc4; background: var(--card-2); border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; }
-.route-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 6px; }
+.route-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-top: auto; padding-top: 6px; }
+.route-open { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.route-maps { display: flex; flex-wrap: wrap; gap: 10px; }
 .routes-cta { margin-top: 72px; }
 .routes-cta p { color: var(--muted); margin: 10px 0 24px; }
 @media (max-width: 860px) {
@@ -186,7 +188,8 @@ img.missing { opacity: 0; }
   .route-card.flip .route-visual { order: 0; }
   .route-visual { min-height: 0; aspect-ratio: 1200 / 880; }
   .route-body { padding: 24px 18px; }
-  .route-actions .btn { flex: 1 1 100%; }
+  .route-actions { align-items: stretch; }
+  .route-maps .btn { flex: 1 1 0; padding: 14px 10px; letter-spacing: .06em; white-space: nowrap; }
 }
 
 /* Contact */
