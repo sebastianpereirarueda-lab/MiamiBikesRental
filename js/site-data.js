@@ -14,7 +14,7 @@ window.SITE = {
   // Paste your GoatCounter code (the "xxx" in xxx.goatcounter.com) and/or a
   // Google Analytics 4 ID ("G-XXXXXXX"). Leave empty to turn tracking off.
   analytics: {
-    goatcounter: "",
+    goatcounter: "miamibikesrentals",
     ga4: "",
   },
 
