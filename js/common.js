@@ -10,10 +10,10 @@
       String(s)
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[̀-ͯ]/g, "")
+        .replace(/[\u0300-\u036f]/g, "")
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-|-$/g, ""),
-    ext: '<svg class="ext"><use href="#i-ext" /></svg>',
+    ext: '<svg class="ext" width="14" height="14"><use href="#i-ext" /></svg>',
   };
 
   // ---- Analytics (only loads when an ID is set in js/site-data.js) ----

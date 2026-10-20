@@ -96,7 +96,10 @@ window.ROUTES = [
     stops: [
       ["South Pointe", 25.7653, -80.1341],
       ["Bal Harbour", 25.8915, -80.1268],
+      ["Sunny Isles Beach", 25.9445, -80.1207, "none"],
+      ["Hallandale Beach", 25.9858, -80.1187, "none"],
       ["Hollywood Beach", 26.0112, -80.1166],
+      ["Dania Beach", 26.0526, -80.1142, "none"],
       ["Fort Lauderdale Beach", 26.1224, -80.1043],
     ],
   },
@@ -137,6 +140,7 @@ window.ROUTES = [
     tags: ["Brickell", "Wynwood", "Design District", "Julia Tuttle Causeway", "Ocean Drive", "MacArthur Causeway"],
     stops: [
       ["Brickell", 25.7617, -80.1918],
+      ["NW 2nd Ave", 25.7935, -80.1992, "none"],
       ["Wynwood", 25.8008, -80.1994],
       ["Design District", 25.8131, -80.1925, "t"],
       ["Julia Tuttle Causeway", 25.8106, -80.16, "b"],

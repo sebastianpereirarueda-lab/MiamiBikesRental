@@ -423,7 +423,7 @@
       ["internal/home/nav/rent-now", 5, "https://www.miamibikesrentals.com/#bikes"],
       ["action/home/gallery/photo-sunset-ride", 4, "Open gallery photo"],
       ["action/home/reviews/show-more-reviews", 3, "Show more reviews"],
-      ...routes.map((r, i) => [`outbound/routes/${r}/open-in-google-maps`, 3 - i * 0.6, "https://www.google.com/maps/dir/…"]),
+      ...routes.map((r, i) => [`outbound/routes/${r}/google-maps`, 3 - i * 0.6, "https://www.google.com/maps/dir/…"]),
       ...routes.map((r, i) => [`internal/routes/${r}/rent-a-bike-for-this-ride`, 1.6 - i * 0.3, "https://www.miamibikesrentals.com/index.html#bikes"]),
     ];
     const sources = [["instagram", 38], ["google.com", 24], ["", 19], ["facebook.com", 8], ["riders-share.com", 6], ["tiktok", 5]];

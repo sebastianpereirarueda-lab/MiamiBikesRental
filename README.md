@@ -4,8 +4,15 @@ Static website for **www.miamibikesrentals.com** — plain HTML/CSS/JS, no build
 
 ## Editing content
 - Bikes, Riders Share links, gallery and reviews: **`js/site-data.js`**
-- Ride routes (the Routes page): **`js/routes-data.js`** — each stop is `[name, lat, lng]`; they draw the
-  mini map and build the "Open in Google Maps" link.
+- Ride routes (the Routes page): **`js/routes-data.js`** — each stop is `[name, lat, lng, labelPos?]`; the
+  stops build the "Open in Google Maps" link and the route map.
+
+### Updating the route maps
+The maps in `assets/routes/` are drawn from real OpenStreetMap roads and driving routes:
+1. Edit `js/routes-data.js` and push. The **Fetch route map data** GitHub Action downloads fresh data
+   into `tools/route-data/` and commits it (takes ~2 minutes).
+2. Pull, then run `pip install shapely && python3 tools/render_route_maps.py` to redraw the SVGs.
+3. Bump `MAP_VERSION` in `js/routes.js` so browsers load the new maps, then push.
 
 ## Click tracking & the client portal
 Every link and button click on the site is recorded as an event named
@@ -17,7 +24,7 @@ Every link and button click on the site is recorded as an event named
 | `booking/home/contact/honda-nt1100` | Honda link in the Contact section |
 | `riders-share/home/reviews/see-all-reviews` | Riders Share profile button |
 | `internal/home/nav/routes` | "Routes" in the top menu |
-| `outbound/routes/<route>/open-in-google-maps` | A route's Google Maps button |
+| `outbound/routes/<route>/google-maps` | A route's Google Maps (or `apple-maps`) button |
 | `action/home/gallery/photo-<label>` | Opened a gallery photo |
 
 Each click also carries the visitor's **traffic source** (Instagram, google.com, a `utm_source`, or "direct"),

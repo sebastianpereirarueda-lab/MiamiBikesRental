@@ -1,0 +1,37 @@
+name: Fetch route map data
+
+# Downloads real OpenStreetMap roads/coastline and driving routes for the Routes page.
+# Runs when the route list or this script changes, or manually from the Actions tab.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "js/routes-data.js"
+      - "tools/fetch-route-data.mjs"
+      - ".github/workflows/route-data.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: route-data-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node tools/fetch-route-data.mjs
+      - name: Commit data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/route-data
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Update route map data from OpenStreetMap"
+          git push
