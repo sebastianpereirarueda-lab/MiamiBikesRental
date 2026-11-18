@@ -7,7 +7,7 @@ needed for the final "put this on the site" step.
 1. Start every Perplexity thread by pasting the **Project context** block below.
 2. Paste one task prompt. Ask follow-ups in the same thread until you're happy.
 3. When a task says *"Return format: …"*, keep that format. Then hand the result to Claude with one line,
-   e.g. *"Add these routes to js/routes-data.js"*, and it's a cheap, quick change.
+   e.g. *"Add these FAQs to the site"*, and it's a cheap, quick change.
 4. Check off tasks as you go. ⭐ = highest impact for bookings.
 
 ---
@@ -24,7 +24,7 @@ Fleet: 2023 BMW R nineT Scrambler, 2026 Honda NT1100 DCT (with top case),
 Customers: tourists (many Spanish-speaking / Latin American), riders visiting Miami,
 couples, and locals. Brand: "Ride Freedom", dark/orange style, premium but friendly.
 The website is a static site (HTML/CSS/JS on GitHub Pages) with: bikes, gallery,
-reviews, contact, and a Routes page of South Florida rides with maps.
+reviews and contact.
 Be specific to Miami/South Florida, cite sources with links, and flag anything you're
 not sure about. Today's date matters: prefer sources from the last 12 months.
 ```
@@ -63,47 +63,10 @@ not sure about. Today's date matters: prefer sources from the last 12 months.
 - [ ] **2.7 Fleet expansion research**
   > Which 2–3 bikes should I add next for Miami rental demand and margin? Compare purchase price, insurance cost, reliability, rental rates, and popularity (e.g., BMW R 1300 GS, Harley Road Glide/Street Glide, Ducati Scrambler, Triumph Bonneville/Tiger, Honda Rebel 1100, Yamaha Tracer 9). Return format: ranked table with payback estimate.
 
-## 3. Routes & guided rides (feeds the Routes page)
-
-Routes on the site use this exact format — ask Perplexity to return it so Claude can paste it in:
-
-```js
-{
-  tag: "The Island One",                 // short nickname
-  title: "Overseas Highway to Key West",
-  summary: "2–3 sentence pitch.",
-  start: "Downtown Miami",
-  miles: "165 mi one way",
-  time: "4–5 hrs",
-  level: "Easy",                          // Easy | Moderate | Hard
-  bike: "Best bike from my fleet and why",
-  warning: "Optional safety note",        // optional
-  tips: ["Tip 1", "Tip 2"],
-  tags: ["US-1", "Key Largo"],
-  stops: [                                // [name, latitude, longitude]
-    ["Downtown Miami", 25.7743, -80.1937],
-    ["Key West", 24.5551, -81.78],
-  ],
-},
-```
-
-- [ ] ⭐ **3.1 Fact-check my 6 routes**
-  > Fact-check these motorcycle routes from Miami: (1) Overseas Highway to Key West, (2) Key Largo loop via Old Cutler Rd and Card Sound Rd, (3) Tamiami Trail + Loop Road to Everglades City, (4) A1A South Pointe to Fort Lauderdale, (5) Rickenbacker Causeway to Cape Florida Lighthouse, (6) Brickell–Wynwood–Design District–Julia Tuttle–Ocean Drive–MacArthur loop. Check distances, times, tolls, fuel availability, Loop Road surface conditions, park fees, and best stops (food, photos). Return format: corrections per route + 3 recommended stops each with name, why, and lat/long.
-- [ ] ⭐ **3.2 New routes (6–10 more)**
-  > Suggest 8 more great motorcycle rides from Miami: e.g. Lake Okeechobee loop, Palm Beach & Jupiter coastal, Homestead/Redland farms & Robert Is Here, Flamingo (Everglades National Park), Big Cypress/Naples, Sebastian Inlet, Venetian Causeway night ride, Coral Gables & Coconut Grove canopy roads. Return each in the JavaScript format above with real coordinates for every stop (verify on a map).
-- [ ] **3.3 Stops & food guide per route**
-  > For each route, list the best biker-friendly stops: restaurants, cafés, photo spots, gas stations, rest areas, with address and lat/long. Return format: JSON array per route `{ route, name, type, address, lat, lng, why }`.
-- [ ] **3.4 Guided tour product**
-  > Design a guided motorcycle tour product (like "guided tours starting Fall 2026"): 3 tour options (half-day city, full-day Keys, sunset), group size, pricing, what's included, insurance/legal requirements for guiding in Florida, booking platforms (Airbnb Experiences, Viator, GetYourGuide), and a simple sales page outline. Return format: product sheet per tour.
-- [ ] **3.5 Weather & safety per month**
-  > For South Florida riding, give a month-by-month summary: temperature, rain chance, thunderstorm timing, hurricane risk, best time of day to ride, and gear advice. Return format: table (12 rows).
-- [ ] **3.6 GPX sources**
-  > Where can I legally get or create GPX files for these routes (Google My Maps export, Kurviger, Calimoto, REVER, Scenic, BaseCamp)? Step-by-step for the easiest free method. Return format: how-to steps.
-
 ## 4. Website content & copywriting
 
 - [ ] ⭐ **4.1 Spanish version of the whole site**
-  > Translate this website copy into natural Latin-American Spanish (not robotic), keeping the brand tone "Ride Freedom". [Paste text from the home page, routes page, bike descriptions, FAQ.] Return format: two columns English | Spanish, same order.
+  > Translate this website copy into natural Latin-American Spanish (not robotic), keeping the brand tone "Ride Freedom". [Paste text from the home page, bike descriptions, FAQ.] Return format: two columns English | Spanish, same order.
 - [ ] **4.2 Better bike descriptions**
   > Rewrite the description for each of my 4 bikes (2–3 sentences each, punchy, benefit-focused, mention who it's best for and best Miami ride). Also give 4 key specs per bike verified from the manufacturer (engine, power, seat height, weight or fuel range). Return format: `{ name, description, specs: [["Engine","…"],["Power","…"],["Seat height","…"],["Range","…"]] }`.
 - [ ] **4.3 Home page headline tests**
@@ -124,7 +87,7 @@ Routes on the site use this exact format — ask Perplexity to return it so Clau
 - [ ] ⭐ **5.2 Google Business Profile setup**
   > Step-by-step guide to create and optimize a Google Business Profile for a motorcycle rental that books through a third-party platform and has a pickup area near Doral (service-area business vs storefront?). Best category, description (750 chars), services list, photos to upload, posts schedule, how to get reviews. Return format: checklist + ready-to-paste description.
 - [ ] **5.3 Page titles & meta descriptions**
-  > Write SEO title tags (≤60 chars) and meta descriptions (≤155 chars) for: home page, routes page, and each future page (each bike, FAQ, Spanish home). Return format: table.
+  > Write SEO title tags (≤60 chars) and meta descriptions (≤155 chars) for: home page and each future page (each bike, FAQ, Spanish home). Return format: table.
 - [ ] **5.4 Structured data**
   > Give JSON-LD schema markup for my site: LocalBusiness/AutoRental (or MotorcycleDealer?) with service area Miami, aggregateRating from Riders Share reviews (is that allowed by Google's rules?), FAQPage, and TouristTrip for routes. Return format: JSON-LD code blocks with notes on what Google allows.
 - [ ] **5.5 Local directories & backlinks**
@@ -137,7 +100,7 @@ Routes on the site use this exact format — ask Perplexity to return it so Clau
 - [ ] ⭐ **6.1 Instagram/TikTok content plan**
   > Create a 30-day Instagram + TikTok plan for a Miami motorcycle rental: post ideas (reels, carousels), hooks, captions in English and Spanish, hashtags, best posting times, and which of my 4 bikes + 6 routes to feature. Return format: table day-by-day.
 - [ ] **6.2 Shot list for photos & videos**
-  > Make a shot list to film my bikes and routes for the website and social (golden hour on Rickenbacker, Seven Mile Bridge, Ocean Drive at night, Wynwood murals, POV riding, detail shots). Include gear settings for iPhone/GoPro and drone rules in Miami. Return format: checklist per location.
+  > Make a shot list to film my bikes for the website and social (golden hour on Rickenbacker, Seven Mile Bridge, Ocean Drive at night, Wynwood murals, POV riding, detail shots). Include gear settings for iPhone/GoPro and drone rules in Miami. Return format: checklist per location.
 - [ ] **6.3 Google Ads / Meta Ads starter plan**
   > Plan a $300/month ad test for motorcycle rentals in Miami: Google search keywords + negative keywords, 3 ad texts, Meta ad audiences (tourists planning Miami trips, Spanish speakers), creative ideas, and what to measure. Return format: campaign outline.
 - [ ] **6.4 Partnerships list**
@@ -179,7 +142,7 @@ chosen option in one message.
   `{ name: "…", bike: "2026 Honda NT1100 DCT", date: "Jun 2026", text: "…" },`
   *(Perplexity may not be able to open Riders Share; if not, copy them by hand in this format.)*
 - [ ] **9.2** Exact specs of each bike from manufacturer sites (engine, hp, torque, seat height, wet weight, fuel capacity, range).
-- [ ] **9.3** 10 photos per bike + route photos (you shoot; see 6.2) — name files like `honda-nt1100-02.jpg`.
+- [ ] **9.3** 10 photos per bike (you shoot; see 6.2) — name files like `honda-nt1100-02.jpg`.
 - [ ] **9.4** Your total Riders Share review count and exact rating, to show "★ 5.0 · 45 reviews" on the site.
 - [ ] **9.5** WhatsApp number / Instagram / TikTok / Google Business links for the footer.
 
@@ -189,7 +152,6 @@ chosen option in one message.
 
 | Bring this | Say this to Claude |
 |---|---|
-| Routes in the JS format (3.2) | "Add these routes to js/routes-data.js and render the maps" |
 | FAQ objects (2.2) | "Add an FAQ section with these" |
 | Bike descriptions/specs (4.2) | "Replace bike descriptions/specs with these" |
 | Reviews (9.1) | "Add these reviews to site-data.js" |

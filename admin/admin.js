@@ -36,7 +36,6 @@
 
   // ---------- Friendly names ----------
   const BIKES = Object.fromEntries((SITE.bikes || []).map((b) => [slug(b.name), b.name]));
-  const ROUTE_NAMES = Object.fromEntries((window.ROUTES || []).map((r) => [slug(r.title), r.title]));
   const KINDS = {
     booking: "Bike booking",
     "riders-share": "Riders Share profile",
@@ -47,11 +46,11 @@
   };
   const SECTIONS = {
     nav: "Top menu", hero: "Top banner", bikes: "Our Bikes", gallery: "Gallery", reviews: "Reviews",
-    routes: "Routes teaser", contact: "Contact", footer: "Footer", page: "Page",
+    contact: "Contact", footer: "Footer", page: "Page",
   };
-  const PAGES = { home: "Home", routes: "Routes page" };
+  const PAGES = { home: "Home" };
   const words = (s) => String(s).replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase());
-  const sectionName = (s) => SECTIONS[s] || ROUTE_NAMES[s] || words(s);
+  const sectionName = (s) => SECTIONS[s] || words(s);
   const clickName = (name) => {
     if (BIKES[name]) return BIKES[name];
     if (name.startsWith("photo-")) return `Opened photo: ${words(name.slice(6))}`;
@@ -412,19 +411,16 @@
     let seed = 7;
     const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
     const bikes = Object.keys(BIKES).length ? Object.keys(BIKES) : ["bmw-r-ninet-scrambler", "honda-nt1100"];
-    const routes = Object.keys(ROUTE_NAMES).slice(0, 3);
     const defs = [
       ...bikes.map((b, i) => [`booking/home/bikes/${b}`, 9 - i * 1.6, "https://www.riders-share.com/…"]),
       ...bikes.map((b, i) => [`booking/home/contact/${b}`, 3 - i * 0.5, "https://www.riders-share.com/…"]),
       ["riders-share/home/reviews/see-all-reviews", 4, SITE.ridersShareProfile],
       ["riders-share/home/contact/contact-us", 3.5, SITE.contactUrl],
       ["internal/home/hero/view-our-bikes", 11, "https://www.miamibikesrentals.com/#bikes"],
-      ["internal/home/nav/routes", 6, "https://www.miamibikesrentals.com/routes.html"],
+      ["internal/home/nav/our-bikes", 6, "https://www.miamibikesrentals.com/#bikes"],
       ["internal/home/nav/rent-now", 5, "https://www.miamibikesrentals.com/#bikes"],
       ["action/home/gallery/photo-sunset-ride", 4, "Open gallery photo"],
       ["action/home/reviews/show-more-reviews", 3, "Show more reviews"],
-      ...routes.map((r, i) => [`outbound/routes/${r}/google-maps`, 3 - i * 0.6, "https://www.google.com/maps/dir/…"]),
-      ...routes.map((r, i) => [`internal/routes/${r}/rent-a-bike-for-this-ride`, 1.6 - i * 0.3, "https://www.miamibikesrentals.com/index.html#bikes"]),
     ];
     const sources = [["instagram", 38], ["google.com", 24], ["", 19], ["facebook.com", 8], ["riders-share.com", 6], ["tiktok", 5]];
     const statsFor = (base, p) => {
@@ -445,7 +441,6 @@
         if (path === "/stats/hits") {
           const hits = [
             ["/", 52, "Miami Bikes Rentals | Premium Motorcycle Rentals in Miami", false],
-            ["/routes.html", 14, "Miami Ride Routes | Miami Bikes Rentals", false],
             ...defs.map(([path, base, title]) => [path, Math.max(0.15, base * 0.3), title, true]),
           ].map(([path, base, title, event], i) => {
             const stats = statsFor(base, p);

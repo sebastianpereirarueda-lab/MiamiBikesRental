@@ -102,5 +102,5 @@
   });
   document.addEventListener("keydown", (e) => e.key === "Escape" && !lb.hidden && close());
 
-  MBR.reveal(".bike-card, .gallery-item, .review-card:not([hidden]), .section-head, .routes-teaser");
+  MBR.reveal(".bike-card, .gallery-item, .review-card:not([hidden]), .section-head");
 })();

@@ -42,8 +42,8 @@
   //   <kind>/<page>/<section>/<name>   e.g. "booking/home/bikes/honda-nt1100"
   // kind:    booking (a bike's Riders Share page), riders-share (profile/contact),
   //          outbound (any other site), internal (links within this site), action (buttons)
-  // page:    home | routes
-  // section: the part of the page clicked (nav, hero, bikes, gallery, reviews, contact, footer, a route…)
+  // page:    home
+  // section: the part of the page clicked (nav, hero, bikes, gallery, reviews, contact, footer…)
   // name:    the element's data-track value, or its text
   // The visitor's traffic source (instagram, google.com, a utm_source…) is sent as the
   // event's referrer, so the admin dashboard can show which sources lead to which clicks.
@@ -72,7 +72,7 @@
     }
   })();
   const campaign = new URLSearchParams(location.search).get("utm_campaign") || "";
-  const page = /routes/.test(location.pathname) ? "routes" : "home";
+  const page = "home";
 
   const sectionOf = (el) => {
     const tagged = el.closest("[data-section]");
