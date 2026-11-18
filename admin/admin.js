@@ -39,6 +39,7 @@
   const KINDS = {
     booking: "Bike booking",
     "riders-share": "Riders Share profile",
+    whatsapp: "WhatsApp chat",
     outbound: "Other website",
     internal: "Site link",
     action: "Button",
@@ -46,13 +47,20 @@
   };
   const SECTIONS = {
     nav: "Top menu", hero: "Top banner", bikes: "Our Bikes", gallery: "Gallery", reviews: "Reviews",
+    quiz: "Find Your Bike quiz", compare: "Compare table", how: "How it works", faq: "FAQ", riders: "Rider wall",
+    who: "Who it's for", "other-bikes": "Other bikes", "sticky-bar": "Booking bar (phone)", whatsapp: "WhatsApp button",
     contact: "Contact", footer: "Footer", page: "Page",
   };
-  const PAGES = { home: "Home" };
+  const PAGES = { home: "Home", ...Object.fromEntries(Object.entries(BIKES).map(([k, v]) => [k, `${v} page`])) };
   const words = (s) => String(s).replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase());
   const sectionName = (s) => SECTIONS[s] || words(s);
   const clickName = (name) => {
     if (BIKES[name]) return BIKES[name];
+    const m = name.match(/^(result-rent|result-details|result)-(.+)$/) || name.match(/^(.+)-(details|photo|title|head)$/);
+    if (m && BIKES[m[2]]) return `Quiz ${m[1] === "result" ? "recommended" : m[1] === "result-rent" ? "→ rent" : "→ details"}: ${BIKES[m[2]]}`;
+    if (m && BIKES[m[1]]) return `${BIKES[m[1]]} — ${m[2] === "details" ? "photos & details" : m[2]}`;
+    if (name === "rent-top" || name === "rent-sticky") return "See price & dates";
+    if (/^language-/.test(name)) return `Switched to ${name.endsWith("es") ? "Spanish" : "English"}`;
     if (name.startsWith("photo-")) return `Opened photo: ${words(name.slice(6))}`;
     return words(name);
   };
@@ -418,6 +426,11 @@
       ["riders-share/home/contact/contact-us", 3.5, SITE.contactUrl],
       ["internal/home/hero/view-our-bikes", 11, "https://www.miamibikesrentals.com/#bikes"],
       ["internal/home/nav/our-bikes", 6, "https://www.miamibikesrentals.com/#bikes"],
+      ["action/home/quiz/result-honda-nt1100", 4, "Quiz recommended Honda NT1100"],
+      ["booking/home/quiz/result-rent-honda-nt1100", 2, "https://www.riders-share.com/…"],
+      ["internal/home/bikes/harley-davidson-nightster-details", 5, "https://www.miamibikesrentals.com/rent-harley-davidson-nightster-miami.html"],
+      ["booking/harley-davidson-nightster/hero/rent-top", 3, "https://www.riders-share.com/…"],
+      ["action/home/nav/language-es", 3, "Español"],
       ["internal/home/nav/rent-now", 5, "https://www.miamibikesrentals.com/#bikes"],
       ["action/home/gallery/photo-sunset-ride", 4, "Open gallery photo"],
       ["action/home/reviews/show-more-reviews", 3, "Show more reviews"],

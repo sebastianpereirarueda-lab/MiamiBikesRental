@@ -3,7 +3,24 @@
 Static website for **www.miamibikesrentals.com** — plain HTML/CSS/JS, no build step, no monthly fees.
 
 ## Editing content
-- Bikes, Riders Share links, gallery and reviews: **`js/site-data.js`**
+Almost everything lives in **`js/site-data.js`**: bikes, Riders Share links, gallery, reviews, the quiz
+recommendations ("who", "bestFor"), comparison facts, "How it works", "What's included" and the FAQ.
+Each text has its Spanish version next to it (`es`). Fixed interface text in Spanish is in `js/i18n.js`.
+
+| Setting in `js/site-data.js` | What it does |
+|---|---|
+| `published.how` / `published.faq` | `false` = hidden from the public, visible only at `/?preview=1`. Set to `true` to publish. |
+| `whatsapp` | Number with country code, digits only. Empty = no WhatsApp button. |
+| `rating.count` | Total Riders Share reviews, shown as "5.0 · 45 reviews". Empty = no count. |
+| `delivery` | Extra line under "What's included". Empty = hidden. |
+| `riders` | Customer photos for the Rider Wall. Empty = section hidden. |
+| bike `photos` / `video` | Extra pictures and an mp4 for that bike's page. |
+
+**Bike pages**: each bike has its own page, `rent-<bike-name>-miami.html`, drawn from its entry in
+`js/site-data.js`. Adding a bike means copying one of those files, changing the title, description and
+`data-bike` to the new bike, and adding the page to `sitemap.xml`.
+
+**Language**: English by default; Spanish for Spanish-language browsers, the menu toggle, or `?lang=es`.
 
 ## Click tracking & the client portal
 Every link and button click on the site is recorded as an event named
@@ -15,6 +32,8 @@ Every link and button click on the site is recorded as an event named
 | `booking/home/contact/honda-nt1100` | Honda link in the Contact section |
 | `riders-share/home/reviews/see-all-reviews` | Riders Share profile button |
 | `internal/home/nav/reviews` | "Reviews" in the top menu |
+| `action/home/quiz/result-honda-nt1100` | The quiz recommended the Honda |
+| `booking/honda-nt1100/hero/rent-top` | "See price & dates" on the Honda page |
 | `action/home/gallery/photo-<label>` | Opened a gallery photo |
 
 Each click also carries the visitor's **traffic source** (Instagram, google.com, a `utm_source`, or "direct"),
